@@ -37,9 +37,10 @@ class TaskController extends Controller
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|boolean',
+            'status' => 'required|in:not_started,in_progress,completed', // Accepte seulement les valeurs de l'ENUM
             'echeance' => 'nullable|date',
         ]);
+
 
         $task = Task::create($validatedData);
 
