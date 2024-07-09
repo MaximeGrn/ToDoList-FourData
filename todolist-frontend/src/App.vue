@@ -1,13 +1,13 @@
 <template>
-    <TodoLists />
+    <div id="app">
+        <router-link to="/">Mes TodoLists</router-link>
+        <router-view />
+    </div>
 </template>
 
 <script>
-import TodoLists from "./components/TodoLists.vue";
-
 export default {
-    components: {
-        TodoLists,
-    },
+    // Pas besoin d'importer ou de déclarer des composants ici,
+    // car ils sont gérés par Vue Router.
 };
 </script>

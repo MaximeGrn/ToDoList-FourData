@@ -1,10 +1,14 @@
 <template>
     <div>
         <h2>Mes TodoLists</h2>
-        <CreateTodoListForm @todoListCreated="addTodoList" />
+        <router-link to="/create-todo-list"
+            >Créer une nouvelle TodoList</router-link
+        >
         <ul>
             <li v-for="todoList in todoLists" :key="todoList.id">
-                <TodoList :todoList="todoList" @taskCreated="addTask" />
+                <router-link :to="`/todo-lists/${todoList.id}`">{{
+                    todoList.nom
+                }}</router-link>
             </li>
         </ul>
     </div>
@@ -12,14 +16,8 @@
 
 <script>
 import api from "../services/api";
-import TodoList from "./TodoList.vue";
-import CreateTodoListForm from "./CreateTodoListForm.vue";
 
 export default {
-    components: {
-        TodoList,
-        CreateTodoListForm,
-    },
     data() {
         return {
             todoLists: [],
@@ -39,18 +37,6 @@ export default {
                     error
                 );
                 // Gestion d'erreur (afficher un message à l'utilisateur, etc.)
-            }
-        },
-        addTodoList(newTodoList) {
-            this.todoLists.push(newTodoList);
-        },
-        addTask(newTask) {
-            // Trouver la TodoList correspondante et ajouter la nouvelle tâche
-            const todoListIndex = this.todoLists.findIndex(
-                (tl) => tl.id === newTask.todo_list_id
-            );
-            if (todoListIndex !== -1) {
-                this.todoLists[todoListIndex].tasks.push(newTask);
             }
         },
     },
