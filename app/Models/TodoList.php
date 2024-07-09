@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class TodoList extends Model
 {
     use HasFactory;
 
-    // Attributs de la tâche modifiables en masse
     protected $fillable = [
-        'nom',
-        'description',
-        'status',
-        'echeance'
+        'nom', // Nom de la TodoList
+        // ... autres attributs si besoin (description, etc.)
     ];
 
     // ... autres déclarations ...
 
-    public function todoList()
+    public function tasks()
     {
-        return $this->belongsTo(TodoList::class);
+        return $this->hasMany(Task::class);
     }
 }

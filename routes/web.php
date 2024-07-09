@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
@@ -15,6 +16,9 @@ Route::prefix('/api')->group(function () { // <-- Juste /api
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
     // ... les autres routes (show, update, destroy) seront ajoutées plus tard ...
 });
+// ... autres routes ...
+
+Route::apiResource('/api/todo-lists', TodoListController::class);
 Route::get('/test', function () {
     return 'Test du fonctionnement des routes';
 });

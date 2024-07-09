@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\TodoList; // Importe le modèle TodoList
 use Illuminate\Http\Request;
 
 
@@ -38,12 +39,16 @@ class TaskController extends Controller
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|in:not_started,in_progress,completed', // Accepte seulement les valeurs de l'ENUM
+            'status' => 'required|in:not_started,in_progress,completed',
             'echeance' => 'nullable|date',
+            'todo_list_id' => 'required|exists:todo_lists,id', // Vérifie que l'ID de la TodoList existe
         ]);
 
+        // Récupère la TodoList à partir de l'ID fourni
+        $todoList = TodoList::findOrFail($validatedData['todo_list_id']);
 
-        $task = Task::create($validatedData);
+        // Crée la tâche en l'associant à la TodoList
+        $task = $todoList->tasks()->create($validatedData);
 
         return response()->json(['message' => 'Tâche créée avec succès', 'task' => $task], 201);
     }
