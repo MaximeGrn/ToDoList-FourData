@@ -10,7 +10,7 @@
             <div class="card-body">
                 <form @submit.prevent="createTodoList">
                     <div class="form-group">
-                        <label for="nom">Nom de la TodoList:</label>
+                        <label for="nom">Nom de la TodoList :</label>
                         <input
                             type="text"
                             id="nom"
