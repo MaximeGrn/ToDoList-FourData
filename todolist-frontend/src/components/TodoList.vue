@@ -15,14 +15,17 @@
 </template>
 
 <script>
+// Importe les composants enfants
 import CreateTaskForm from "./CreateTaskForm.vue";
 import TodoItem from "./TodoItem.vue";
 
 export default {
+    // Enregistre les composants enfants pour les utiliser dans le template
     components: {
         CreateTaskForm,
         TodoItem,
     },
+    // Définition des props attendues par le composant
     props: {
         todoList: {
             type: Object,
@@ -31,16 +34,20 @@ export default {
     },
     data() {
         return {
-            localTodoList: { ...this.todoList }, // Copie de la prop todoList
+            // Création d'une copie de la prop 'todoList' pour éviter de modifier la source directement
+            localTodoList: { ...this.todoList },
         };
     },
     methods: {
+        // Méthode pour mettre à jour une tâche dans la liste
         updateTask(updatedTask) {
+            // Trouve l'index de la tâche à mettre à jour dans le tableau 'localTodoList.tasks'
             const taskIndex = this.localTodoList.tasks.findIndex(
-                // Modifier la copie locale
                 (t) => t.id === updatedTask.id
             );
+            // Si la tâche est trouvée
             if (taskIndex !== -1) {
+                // Remplace la tâche dans le tableau par la tâche mise à jour
                 this.localTodoList.tasks.splice(taskIndex, 1, updatedTask);
             }
         },
