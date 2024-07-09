@@ -9,6 +9,11 @@
                 <router-link :to="`/todo-lists/${todoList.id}`">{{
                     todoList.nom
                 }}</router-link>
+                <ul v-if="todoList.tasks && todoList.tasks.length > 0">
+                    <li v-for="task in todoList.tasks" :key="task.id">
+                        - {{ task.nom }}
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

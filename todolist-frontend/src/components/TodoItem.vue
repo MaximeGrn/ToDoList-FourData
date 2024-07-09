@@ -1,7 +1,9 @@
 <template>
     <div>
-        <span>{{ task.nom }}</span>
-        <!-- Afficher d'autres détails de la tâche si nécessaire (description, échéance, etc.) -->
+        <h4>{{ task.nom }}</h4>
+        <p v-if="task.description">Description : {{ task.description }}</p>
+        <p>État : {{ task.status }}</p>
+        <p v-if="task.echeance">Échéance : {{ formatDate(task.echeance) }}</p>
     </div>
 </template>
 
@@ -11,6 +13,12 @@ export default {
         task: {
             type: Object,
             required: true,
+        },
+    },
+    methods: {
+        formatDate(dateString) {
+            const options = { year: "numeric", month: "long", day: "numeric" };
+            return new Date(dateString).toLocaleDateString("fr-FR", options);
         },
     },
 };
