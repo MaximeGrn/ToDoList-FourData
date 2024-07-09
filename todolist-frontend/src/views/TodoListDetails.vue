@@ -1,20 +1,53 @@
 <template>
-    <div v-if="todoList">
-        <h3>{{ todoList.nom }}</h3>
-        <ul v-if="todoList.tasks && todoList.tasks.length > 0">
-            <li v-for="task in todoList.tasks" :key="task.id">
-                <TodoItem :task="task" @taskUpdated="updateTask" />
-                <button @click="editTask(task)">Modifier</button>
-                <button @click="deleteTask(task.id)">Supprimer</button>
-            </li>
-        </ul>
-        <p v-else>Aucune tâche dans cette liste.</p>
-
-        <router-link :to="`/todo-lists/${todoList.id}/create-task`"
-            >Ajouter une tâche</router-link
+    <div class="container mt-5" v-if="todoList">
+        <router-link to="/" class="btn btn-secondary mb-3"
+            >Mes TodoLists</router-link
         >
-        <button @click="editTodoList">Modifier TodoList</button>
-        <button @click="deleteTodoList">Supprimer TodoList</button>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ todoList.nom }}</h3>
+                <div class="float-right">
+                    <button
+                        @click="editTodoList"
+                        class="btn btn-warning btn-sm mr-2"
+                    >
+                        Modifier
+                    </button>
+                    <button
+                        @click="deleteTodoList"
+                        class="btn btn-danger btn-sm"
+                    >
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul
+                    class="list-group"
+                    v-if="todoList.tasks && todoList.tasks.length > 0"
+                >
+                    <li
+                        v-for="task in todoList.tasks"
+                        :key="task.id"
+                        class="list-group-item"
+                    >
+                        <TodoItem
+                            :task="task"
+                            @taskUpdated="updateTask"
+                            @editTask="editTask"
+                            @deleteTask="deleteTask"
+                        />
+                    </li>
+                </ul>
+                <p v-else class="text-muted">Aucune tâche dans cette liste.</p>
+                <router-link
+                    :to="`/todo-lists/${todoList.id}/create-task`"
+                    class="btn btn-primary mt-3"
+                >
+                    Ajouter une tâche
+                </router-link>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -55,11 +88,22 @@ export default {
             }
         },
         updateTask(updatedTask) {
+            // Trouver l'index de la tâche mise à jour
             const taskIndex = this.todoList.tasks.findIndex(
                 (t) => t.id === updatedTask.id
             );
+
             if (taskIndex !== -1) {
-                this.todoList.tasks.splice(taskIndex, 1, updatedTask);
+                // Retirer la tâche de sa position actuelle
+                this.todoList.tasks.splice(taskIndex, 1);
+
+                if (updatedTask.status === "completed") {
+                    // Ajouter la tâche à la fin du tableau si elle est terminée
+                    this.todoList.tasks.push(updatedTask);
+                } else {
+                    // Ajouter la tâche au début du tableau si elle n'est pas terminée
+                    this.todoList.tasks.unshift(updatedTask);
+                }
             }
         },
         editTask(task) {

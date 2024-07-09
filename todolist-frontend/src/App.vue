@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <router-link to="/">Mes TodoLists</router-link>
         <router-view />
     </div>
 </template>
