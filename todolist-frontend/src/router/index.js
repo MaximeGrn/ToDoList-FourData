@@ -4,6 +4,7 @@ import CreateTodoList from "../views/CreateTodoList.vue";
 import TodoListDetails from "../views/TodoListDetails.vue";
 import CreateTask from "../views/CreateTask.vue";
 import EditTask from "../views/EditTask.vue";
+import EditTodoList from "../views/EditTodoList.vue";
 
 const routes = [
     {
@@ -32,6 +33,12 @@ const routes = [
         path: "/edit-task/:id", // Route pour la modification d'une tâche
         name: "EditTask",
         component: EditTask,
+        props: true,
+    },
+    {
+        path: "/edit-todo-list/:id",
+        name: "EditTodoList",
+        component: EditTodoList,
         props: true,
     },
 ];

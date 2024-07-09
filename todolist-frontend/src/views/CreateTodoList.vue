@@ -1,11 +1,29 @@
 <template>
-    <form @submit.prevent="createTodoList">
-        <div class="form-group">
-            <label for="nom">Nom de la TodoList:</label>
-            <input type="text" id="nom" v-model="nom" required />
+    <div class="container mt-5">
+        <router-link to="/" class="btn btn-secondary mb-3"
+            >Mes TodoLists</router-link
+        >
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Créer une nouvelle TodoList</h3>
+            </div>
+            <div class="card-body">
+                <form @submit.prevent="createTodoList">
+                    <div class="form-group">
+                        <label for="nom">Nom de la TodoList:</label>
+                        <input
+                            type="text"
+                            id="nom"
+                            v-model="nom"
+                            class="form-control"
+                            required
+                        />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Créer</button>
+                </form>
+            </div>
         </div>
-        <button type="submit">Créer</button>
-    </form>
+    </div>
 </template>
 
 <script>

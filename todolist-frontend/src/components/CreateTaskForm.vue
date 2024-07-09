@@ -2,25 +2,40 @@
     <form @submit.prevent="createTask">
         <div class="form-group">
             <label for="nom">Nom de la tâche :</label>
-            <input type="text" id="nom" v-model="nom" required />
+            <input
+                type="text"
+                id="nom"
+                v-model="nom"
+                class="form-control"
+                required
+            />
         </div>
         <div class="form-group">
             <label for="description">Description :</label>
-            <textarea id="description" v-model="description"></textarea>
+            <textarea
+                id="description"
+                v-model="description"
+                class="form-control"
+            ></textarea>
         </div>
         <div class="form-group">
             <label for="echeance">Échéance :</label>
-            <input type="date" id="echeance" v-model="echeance" />
+            <input
+                type="date"
+                id="echeance"
+                v-model="echeance"
+                class="form-control"
+            />
         </div>
         <div class="form-group">
             <label for="status">Statut :</label>
-            <select id="status" v-model="status">
+            <select id="status" v-model="status" class="form-control">
                 <option value="not_started">Non commencée</option>
                 <option value="in_progress">En cours</option>
                 <option value="completed">Terminée</option>
             </select>
         </div>
-        <button type="submit">Créer</button>
+        <button type="submit" class="btn btn-primary">Créer</button>
     </form>
 </template>
 
